@@ -1,6 +1,6 @@
 # Enterprise-Scale Data Mesh on Google Cloud
 
-[![Build Status](https://github.com/your-org/data-mesh-gcp/actions/workflows/terraform.yml/badge.svg)](https://github.com/your-org/data-mesh-gcp/actions/workflows/terraform.yml)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This repository contains a Proof-of-Concept (PoC) for an Enterprise-Scale Data Mesh architecture on the Google Cloud Platform. It provides a reproducible infrastructure setup using Terraform, demonstrating how to build and manage a decentralized data architecture with centralized governance.
