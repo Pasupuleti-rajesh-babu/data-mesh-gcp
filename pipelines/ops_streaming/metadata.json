@@ -1,0 +1,30 @@
+{
+    "name": "Operations Streaming Pipeline",
+    "description": "A Dataflow Flex Template for processing operations events from Pub/Sub to GCS.",
+    "parameters": [
+        {
+            "name": "project_id",
+            "label": "GCP Project ID",
+            "help_text": "The Google Cloud project ID.",
+            "is_optional": false
+        },
+        {
+            "name": "subscription",
+            "label": "Input Pub/Sub Subscription",
+            "help_text": "The Pub/Sub subscription to read messages from.",
+            "is_optional": false
+        },
+        {
+            "name": "raw_bucket_path",
+            "label": "Raw GCS Bucket Path",
+            "help_text": "The GCS bucket to write raw Avro files to (e.g., your-project-raw).",
+            "is_optional": false
+        },
+        {
+            "name": "curated_bucket_path",
+            "label": "Curated GCS Bucket Path",
+            "help_text": "The GCS bucket to write curated Parquet files to (e.g., your-project-curated).",
+            "is_optional": false
+        }
+    ]
+} 
