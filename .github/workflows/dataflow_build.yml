@@ -1,0 +1,41 @@
+name: 'Dataflow Flex Template Build'
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pipelines/**'
+
+jobs:
+  build-and-publish:
+    name: 'Build and Publish Flex Templates'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        domain: [finance, marketing, ops]
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: 'Build and Deploy Flex Template for ${{ matrix.domain }}'
+        run: |
+          gcloud dataflow flex-template build "gs://${{ secrets.GCP_PROJECT_ID }}-dataflow-templates/${{ matrix.domain }}_streaming.json" \
+            --image "gcr.io/${{ secrets.GCP_PROJECT_ID }}/dataflow/${{ matrix.domain }}_streaming:latest" \
+            --sdk-language "PYTHON" \
+            --flex-template-base-image "GCP" \
+            --metadata-file "pipelines/${{ matrix.domain }}_streaming/metadata.json" \
+            --py-path "pipelines/${{ matrix.domain }}_streaming" \
+            --env "FLEX_TEMPLATE_PYTHON_PY_FILE=main.py" \
+            --env "FLEX_TEMPLATE_PYTHON_REQUIREMENTS_FILE=requirements.txt" \
+            --project "${{ secrets.GCP_PROJECT_ID }}"
+        working-directory: ./ 
