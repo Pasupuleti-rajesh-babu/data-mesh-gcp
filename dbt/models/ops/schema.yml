@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: operations_raw
+    schema: operations_raw
+    tables:
+      - name: ops_events_raw
+        description: "Raw operations events from GCS external table."
+
+models:
+  - name: staging_ops
+    description: "Staged operations events, cleaned and casted."
+    columns:
+      - name: event_id
+        description: "Unique identifier for the event."
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        description: "Type of the operations event (e.g., service_health, job_status)."
+        tests:
+          - not_null
+      - name: event_timestamp
+        description: "Timestamp of when the event occurred."
+        tests:
+          - not_null
+      - name: service_name
+        description: "Name of the service generating the event."
+        tests:
+          - not_null
+      - name: status
+        description: "Status of the event (e.g., success, failure)."
+      - name: payload
+        description: "JSON payload with event details."
+      - name: loaded_at
+        description: "Timestamp of when the record was loaded into the raw table."
+        tests:
+          - not_null 

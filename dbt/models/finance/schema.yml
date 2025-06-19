@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: finance_raw
+    schema: finance_raw
+    tables:
+      - name: finance_events_raw
+        description: "Raw finance events from GCS external table."
+
+models:
+  - name: staging_finance
+    description: "Staged finance events, cleaned and casted."
+    columns:
+      - name: event_id
+        description: "Unique identifier for the event."
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        description: "Type of the finance event (e.g., transaction, invoice)."
+        tests:
+          - not_null
+      - name: event_timestamp
+        description: "Timestamp of when the event occurred."
+        tests:
+          - not_null
+      - name: user_id
+        description: "Identifier for the user associated with the event."
+        tests:
+          - not_null
+      - name: payload
+        description: "JSON payload with event details."
+      - name: loaded_at
+        description: "Timestamp of when the record was loaded into the raw table."
+        tests:
+          - not_null 

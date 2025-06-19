@@ -1,0 +1,35 @@
+name: 'data_mesh_gcp'
+version: '1.0.0'
+config-version: 2
+
+profile: 'data_mesh_gcp'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  data_mesh_gcp:
+    finance:
+      +materialized: incremental
+      +schema: finance_curated
+      +tags: ["finance"]
+    marketing:
+      +materialized: incremental
+      +schema: marketing_curated
+      +tags: ["marketing"]
+    operations:
+      +materialized: incremental
+      +schema: ops_curated
+      +tags: ["operations"]
+    analytics:
+      +schema: analytics
+      +tags: ["analytics"] 
